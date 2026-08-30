@@ -58,7 +58,7 @@ export PARTNER_API_SECRET=mySecretPassword   # Linux/macOS
 $env:PARTNER_API_SECRET="mySecretPassword"   # Windows PowerShell
 ```
 
-### 2. Build and Run
+### 3. Build and Run
 ```bash
 ./gradlew :api:bootRun
 ```
@@ -67,4 +67,20 @@ The application will start at `http://localhost:8080`.
 ### 3. Run Tests
 ```bash
 ./gradlew test
+```
+
+
+## For Testing APIs using [PostMan Collection](../Employees-R-US.postman_collection.json)
+
+1. Create an Environment in Post Man
+2. Add the following variables there
+   - baseUrl: http://localhost:8080/api/v1/employee
+   - testUuid: empty
+   - username: employee-r-us
+   - password: `the password you've set in step 1 of quick start`
+
+```
+NOTE: run any of the other 2 apis in postman before running /{id}
+so that the script will populate the testUuid which is used for 
+this endpoint
 ```
