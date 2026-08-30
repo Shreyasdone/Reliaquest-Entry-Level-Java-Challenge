@@ -14,9 +14,7 @@ public final class EmployeeMapper {
         employee.setUuid(UUID.randomUUID());
         employee.setFirstName(request.firstName());
         employee.setLastName(request.lastName());
-        employee.setFullName(
-                request.firstName() + " " + request.lastName()
-        );
+        employee.setFullName(request.firstName() + " " + request.lastName());
         employee.setSalary(request.salary());
         employee.setAge(request.age());
         employee.setJobTitle(request.jobTitle());

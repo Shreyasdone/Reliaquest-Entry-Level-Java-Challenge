@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS employees (
     salary INTEGER NOT NULL,
     age INTEGER NOT NULL,
     job_title VARCHAR(150) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     contract_hire_date TIMESTAMP NOT NULL,
     contract_termination_date TIMESTAMP,
 

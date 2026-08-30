@@ -1,11 +1,9 @@
 package com.challenge.api.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,6 +13,10 @@ import java.util.UUID;
  */
 public interface Employee {
 
+    /**
+     * TODO: The sequence generation type e.g.(1,2,3) is a better choice than UUID v4 for id in SQL due to its sequential nature.
+     * TODO: another choice is UUID v7 but it is not supported by default in spring boot 3.2. It is available from spring boot 3.3+
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID getUuid();

@@ -4,11 +4,10 @@ import com.challenge.api.model.Employee;
 import com.challenge.api.model.impl.EmployeeImpl;
 import com.challenge.api.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
@@ -24,11 +23,16 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeByUuid(UUID uuid) {
-        return employeeRepository.findById(uuid)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Employee by the uuid %s does not exist", uuid)));
+        return employeeRepository
+                .findById(uuid)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(String.format("Employee by the uuid %s does not exist", uuid)));
     }
 
     public Employee createEmployee(EmployeeImpl requestBody) {
+        if (employeeRepository.existsByEmail(requestBody.getEmail())) {
+            throw new IllegalArgumentException("Email already in use: " + requestBody.getEmail());
+        }
         return employeeRepository.save(requestBody);
     }
 }

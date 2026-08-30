@@ -1,0 +1,251 @@
+{
+  "info": {
+    "_postman_id": "3dfc6e61-a852-4f17-a565-24f78f8441cc",
+    "name": "Employees-R-US",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45499745",
+    "_collection_link": "https://go.postman.co/collection/45499745-3dfc6e61-a852-4f17-a565-24f78f8441cc?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Error Tests",
+      "item": [
+        {
+          "name": "Get Employee By ID (404)",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/413db272-9ea6-4b5d-9656-28ff0e2d6540",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "413db272-9ea6-4b5d-9656-28ff0e2d6540"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Employee (Duplicate Email 409)",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Alice\",\r\n    \"lastName\": \"Johnson\",\r\n    \"salary\": 75000,\r\n    \"age\": 32,\r\n    \"jobTitle\": \"Software Engineer\",\r\n    \"email\": \"alice.johnson@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Employee (Validation Check 400)",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Alice\",\r\n    \"lastName\": \"Johnson\",\r\n    \"salary\": 75000,\r\n    \"age\": 32,\r\n    \"jobTitle\": \"Software Engineer\",\r\n    \"email\": \"alice.johnson@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Create Employee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseData = pm.response.json();\r",
+              "const fieldValue = responseData.uuid; \r",
+              "pm.environment.set(\"testUuid\", fieldValue);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"salary\": 85000,\r\n  \"age\": 30,\r\n  \"jobTitle\": \"Software Engineer\",\r\n  \"email\": \"john.doe@example.com\"\r\n}\r\n"
+        },
+        "url": {
+          "raw": "{{baseUrl}}",
+          "host": [
+            "{{baseUrl}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Employees",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseData = pm.response.json();\r",
+              "const fieldValue = responseData[0].uuid; \r",
+              "pm.environment.set(\"testUuid\", fieldValue);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/all",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Employee By Id",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/{{testUuid}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "{{testUuid}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -26,10 +26,12 @@ public class SecurityConfig {
         return http.securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET,  "/api/v1/employee/**").hasRole("EMPLOYEE_READER")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/employee/**").hasRole("EMPLOYEE_WRITER")
-                        .anyRequest().denyAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET, "/api/v1/employee/**")
+                        .hasRole("EMPLOYEE_READER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/employee/**")
+                        .hasRole("EMPLOYEE_WRITER")
+                        .anyRequest()
+                        .denyAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
@@ -42,10 +44,9 @@ public class SecurityConfig {
     @Bean
     UserDetailsService users(PasswordEncoder encoder) {
         String secret = System.getenv("PARTNER_API_SECRET");
-        return new InMemoryUserDetailsManager(
-                User.withUsername("employees-r-us")
-                        .password(encoder.encode(secret))
-                        .roles("EMPLOYEE_READER", "EMPLOYEE_WRITER")
-                        .build());
+        return new InMemoryUserDetailsManager(User.withUsername("employees-r-us")
+                .password(encoder.encode(secret))
+                .roles("EMPLOYEE_READER", "EMPLOYEE_WRITER")
+                .build());
     }
 }
